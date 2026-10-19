@@ -1,56 +1,86 @@
-# VoxBazaar Frontend Prototype
+# VoxBazaar — Virtual Marketplace Prototype (R1)
 
-React + Vite frontend-only prototype for Tenant/Vendor and Organizer. There is no backend. Account data, bazaar records, business profiles, and applications are stored in the current browser's localStorage; document selection, publishing, payment, messaging, and review actions are simulations only.
+**React + Vite · Responsive web · GitHub Pages compatible**
 
-## Run locally
+This repository is a working **interactive frontend demonstration** for the new VoxBazaar direction: independent makers open permanent digital booths, visitors explore Products and Projects, and products link visitors to booths. No events, venues, floor plans, check-in or checkout exist in this release.
 
-1. Install Node.js 22 or newer.
-2. Open this project folder in VS Code.
-3. In Terminal run:
+## Start in VS Code
+
+Requirements: Node.js 22+, npm.
+
+```bash
+npm ci
+npm run dev
+```
+
+Open the local URL shown in your terminal (typically http://localhost:5173).
+
+Run a production build:
+
+```bash
+npm run build
+npm run preview
+```
+
+## Demo routes
+
+The app uses hash-based routing. All of the following can be opened or refreshed on GitHub Pages:
+
+| Page | Hash route |
+|---|---|
+| Homepage | `#/` |
+| Products | `#/products` |
+| Booths | `#/booths` |
+| Projects | `#/projects` |
+| Search | `#/search` |
+| Product detail | `#/product/tenmoku-bowl` |
+| Booth detail | `#/booth/kusuma-pottery` |
+| Project detail | `#/project/indigo-revival` |
+| Vendor onboarding sample | `#/sell` |
+| Studio demo (local drafts) | `#/studio` |
+| Account preview | `#/account` |
+
+### State previews
+
+The small **UI states** switcher at the lower-right provides developer/demo links for `default`, `loading`, `empty`, `error`, `offline`, and `no-permission` on the homepage and explore pages. These are **deliberate test state previews**, not real API failures. For example `#/products?state=error`.
+
+## Deployment to GitHub Pages
+
+This project **retains the existing** `.github/workflows/deploy.yml`. No separate `gh-pages` branch is needed.
+
+1. Make a **backup** of your original repository folder.
+2. Make a new working branch, then replace its `src/` directory and the other project files with these files (do **not** replace/delete the original `.git` directory).
+3. Open the repository folder in VS Code, run `npm ci` and `npm run build`.
+4. Use a new branch until you have checked the result:
 
    ```bash
-   npm ci
-   npm run dev
+   git switch -c marketplace-redesign
+   git add .
+   git commit -m "Build virtual marketplace R1 prototype"
+   git push -u origin marketplace-redesign
    ```
 
-4. Open the local URL printed by Vite.
+5. On GitHub, open a Pull Request into `main`. Merge once reviewed; the existing GitHub Actions workflow deploys the `dist` build to GitHub Pages.
+6. Under **Settings → Pages**, use **GitHub Actions** as the deployment source.
 
-## Demo accounts
+Expected site: https://flienschyf.github.io/VoxBazaar-Prototype/
 
-- Tenant / Vendor: `sarah@artisanbakery.com`
-- Organizer: `alex@semiramis.events`
-- Password for both: `VoxDemo!2026`
+## Source / scope
 
-You can also create new Tenant or Organizer accounts from Sign Up. New accounts are stored locally in this browser.
+- Source: the original `VoxBazaar-GitHub` ZIP, Stitch desktop export (37 screens), and Stitch mobile export (130 screen variants).
+- Design adaptation: brand primary blue `#1B63E0`, canvas `#F4F4F4`, white cards, Fraunces headings and Inter body. Built as **one responsive web codebase**, not two separate apps.
+- Content: representative entries adapted and condensed from the Stitch examples. All vendor names, prices and descriptions are fictional demo content.
+- Product vs Project: products have prices and **Visit Booth** links; projects show **Showcase**, with no price.
+- No live backend, authentication, checkout, payment processing, vendor approval or user registration. The account page is illustrative only.
+- Product-saving and draft creation use this browser's `localStorage`, not a shared database.
+- Exported Stitch imagery uses `lh3.googleusercontent.com/aida-public/...` **remote URLs** in `src/data/stitchImages.json`. Images may need replacement with locally hosted, licensed media before a real launch; a plain placeholder displays if an image URL fails to load. Do not treat generated or sample imagery as licensed production assets.
+- Old source pages that referred to the physical bazaar have been removed from this deliverable. Keep your original repository ZIP as the backup/reference. Do not restore event-management routes.
+- Mobile pages and various state designs are **translated into shared React patterns**, not all 167 exported HTML screens implemented one-for-one. The desktop Vendor Studio and complete flows remain follow-up work.
 
-## Main Tenant flow
+## Recommended next development tasks
 
-1. Register or sign in as Tenant / Vendor.
-2. Create or edit a business profile in **My Businesses**.
-3. Open **Find a Bazaar** and choose a published bazaar.
-4. Complete the 4-step application: business profile, products, operational requirements, and review/declaration.
-5. Submit the application and track its status in **My Applications**.
-
-## Main Organizer flow
-
-1. Register or sign in as Organizer.
-2. Open **Bazaars & Events** or click **Create Bazaar** on the dashboard.
-3. Enter event name, slug, description, venue/address, event dates, registration dates, capacity, contact, category, branding colors, and required documents.
-4. Save as draft, or satisfy the publish checklist and select **Save & publish**.
-5. Review tenant submissions in **Applications** and update their statuses. Bazaar and application records are stored in localStorage so both roles can see changes in the same browser profile after signing in again.
-
-## GitHub Pages
-
-The `.github/workflows/deploy.yml` workflow builds and deploys the `dist` folder whenever code is pushed to `main`. In the repository's **Settings → Pages**, choose **GitHub Actions** as the deployment source. Keep `vite.config.js` set to `base: './'` and the entry path in `index.html` relative (`./src/main.jsx`).
-
-## Included interactions
-
-- Responsive tenant and organizer dashboards with sidebar navigation.
-- Register/login role selection and demo accounts.
-- Tenant business create/edit forms, search, and status badges.
-- Bazaar create/edit, draft saving, validation, registration dates, capacity, brand color preview, required-document selection, and publish simulation.
-- Four-step tenant bazaar application wizard and organizer application review/status changes.
-- Existing Organizer Studio areas remain available: applications, booth map, vendors directory, compliance, financials, announcements, settings, workspace permissions, and profile controls.
-- Hover, focus, active, disabled, toast, and modal states.
-
-All sample people, event names, counts, fees, and statuses are illustrative. No real messages, payments, uploads, or external verification occur.
+1. Replace external Stitch images with approved local assets.
+2. Finish the Vendor Studio UI to match remaining desktop Stitch screens, once exported.
+3. Add proper backend, validation, access controls and data persistence if proceeding beyond the prototype.
+4. Run manual keyboard/screen-reader tests, mobile touch tests and automated WCAG audits. The code includes accessible patterns but is **not certified WCAG 2.2 AA**.
+5. Confirm release-one features with stakeholders before commerce work (R2).
