@@ -1,0 +1,27 @@
+VOXBAZAAR — ENGLISH + USD + TUTORIAL DATA UPDATE
+
+WHAT CHANGED
+- 31 fictional handmade products; 8 sample booths; 9 project showcases.
+- USD ($) prices across public product catalog, Vendor Studio and Admin Studio.
+- Vendor example is Anyam Studio (basketry). More sample vendor review records.
+- Finance preview in USD clearly displays $0.00 because transactions are disabled in R1.
+- Additional tutorial instructions: docs/VIDEO_TUTORIAL_GUIDE.md.
+- Previous saved IDR-based dashboard demo is NOT reinterpreted as USD.
+
+WHERE TO COPY
+1. Open existing VoxBazaar-GitHub folder (the one containing .git).
+2. Confirm current branch is dashboard-integration: git branch --show-current
+3. Check changes: git status -sb
+4. Extract PATCH ZIP, open the inner VoxBazaar-Update directory.
+5. Copy its CONTENTS into VoxBazaar-GitHub and replace matching files.
+6. DO NOT DELETE .git, node_modules, dist or the entire src folder.
+7. In VS Code terminal: npm ci
+8. Run: npm run dev
+9. Inspect #/products, #/studio/products, #/studio/analytics, #/admin/catalog.
+10. Run: npm run build
+11. If build succeeds: git add . && git commit -m "Use USD and expand VoxBazaar tutorial demo" && git push -u origin dashboard-integration
+12. Review or create a PR from dashboard-integration to main. Merge only after checks pass.
+
+IMPORTANT
+This is a demo-only frontend. No actual payments, authentication, or shared data.
+For detailed setup in Indonesian, read docs/UPDATE_GUIDE_WINDOWS.md (English instructions, Windows commands).

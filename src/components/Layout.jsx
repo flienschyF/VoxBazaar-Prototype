@@ -7,7 +7,7 @@ export const navLinks = [
   {name:'Booths', path:'/booths'},
   {name:'Projects', path:'/projects'},
 ]
-export function Brand(){return <a className="vb-brand" href={href('/')} aria-label="VoxBazaar home"><span className="vb-brand-icon" aria-hidden="true">V</span><span><strong>VoxBazaar</strong><small>MADE BY INDEPENDENT HANDS</small></span></a>}
+export function Brand(){return <a className="vb-brand" href={href('/')} aria-label="VoxBazaar home"><span className="vb-brand-icon" aria-hidden="true">V</span><span><strong>VoxBazaar</strong></span></a>}
 export function Header({pathname}){
  const [menu,setMenu]=useState(false)
  const [search,setSearch]=useState('')
@@ -23,7 +23,7 @@ export function Header({pathname}){
    {menu&&<nav className="vb-mobile-menu" aria-label="Mobile expanded navigation">{navLinks.map(l=><a key={l.path} href={href(l.path)} onClick={()=>setMenu(false)}>{l.name}</a>)}<a href={href('/sell')} onClick={()=>setMenu(false)}>Open your booth</a></nav>}
  </>
 }
-export function Footer(){return <footer className="vb-footer"><div className="vb-container vb-footer-grid"><div><Brand/><p>An independent marketplace for handmade objects, creative projects, and the people who make them.</p><span className="vb-demo-notice">Interactive design prototype · Fictional demo content</span></div><div><b>Explore</b><a href="#/products">Handmade products</a><a href="#/booths">Digital booths</a><a href="#/projects">Creative projects</a></div><div><b>For makers</b><a href="#/sell">Open your booth</a><a href="#/studio">Vendor Studio demo</a></div><div><b>Information</b><a href="#/help">Help & contact</a><a href="#/about">About the prototype</a></div></div><div className="vb-container vb-footer-bottom"><span>© 2026 VoxBazaar · Prototype only</span><span>Crafted for independent makers</span></div></footer>}
+export function Footer(){return <footer className="vb-footer"><div className="vb-container vb-footer-grid"><div><Brand/><p>An independent marketplace for handmade objects, creative projects, and the people who make them.</p><span className="vb-demo-notice">Interactive design prototype · Fictional demo content</span></div><div><b>Explore</b><a href="#/products">Handmade products</a><a href="#/booths">Digital booths</a><a href="#/projects">Creative projects</a></div><div><b>For makers</b><a href="#/sell">Open your booth</a><a href="#/studio">Vendor Studio</a></div><div><b>Information</b><a href="#/help">Help & contact</a><a href="#/about">About</a></div></div><div className="vb-container vb-footer-bottom"><span>© 2026 VoxBazaar · Prototype only</span><span>Crafted for independent makers</span></div></footer>}
 export function BottomNav({pathname}){
  const links=[{name:'Home',path:'/',icon:Home},{name:'Explore',path:'/products',icon:LayoutGrid},{name:'Search',path:'/search',icon:Search},{name:'Sell',path:'/sell',icon:Store},{name:'Account',path:'/account',icon:UserRound}]
  return <nav className="vb-bottom-nav" aria-label="Mobile bottom navigation">{links.map(({name,path,icon:Icon})=><a key={name} href={href(path)} className={pathname===path || (path==='/products' && ['/products','/booths','/projects'].some(v=>pathname.startsWith(v)))?'current':''} aria-current={pathname===path?'page':undefined}><Icon size={21} strokeWidth={1.9}/><span>{name}</span></a>)}</nav>
