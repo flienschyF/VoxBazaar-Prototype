@@ -1,86 +1,97 @@
-# VoxBazaar — Virtual Marketplace Prototype (R1)
+# VoxBazaar — Responsive Marketplace Prototype
 
-**React + Vite · Responsive web · GitHub Pages compatible**
+React + Vite + public GitHub Pages demo. Based on your previously deployed R1 repository, the complete 83-screen Stitch desktop design archive, and the earlier Stitch mobile export.
 
-This repository is a working **interactive frontend demonstration** for the new VoxBazaar direction: independent makers open permanent digital booths, visitors explore Products and Projects, and products link visitors to booths. No events, venues, floor plans, check-in or checkout exist in this release.
+**This is a prototype, not a live marketplace.** Products, booths, vendor applications, moderation records and reports are sample data. Vendor and Admin tools currently store changes only in the current browser using `localStorage`. This project does not authenticate or authorize real users, process purchases, or verify documents.
 
-## Start in VS Code
+## Update — English interface, USD and more demo content
 
-Requirements: Node.js 22+, npm.
+- Every public and dashboard price is presented in **USD ($)**, including the vendor product editor and the sample admin catalog.
+- Public data now contains **31 fictional products, 8 vendor booths and 9 creative projects**. Vendor Studio starts with **6 Anyam Studio product examples**.
+- Admin Studio sample catalog includes the full public sample products and projects (in a **separate local-only moderation copy**).
+- The Finance preview uses **$0.00** for revenue and payouts because **checkout is not part of Release 1**.
+- The code intentionally uses a new localStorage key to avoid silently reinterpreting previously entered IDR values as USD.
+- Video narration and example data: `docs/VIDEO_TUTORIAL_GUIDE.md`.
+- Windows instructions that avoid switching away from your existing branch: `docs/UPDATE_GUIDE_WINDOWS.md`.
+- **The product examples use made-up USD prices, not real exchange rates or actual inventory.**
 
-```bash
-npm ci
-npm run dev
-```
+## Cara memasang ke repository GitHub LAMA (Windows / VS Code)
 
-Open the local URL shown in your terminal (typically http://localhost:5173).
+1. **Jangan hapus `.git`** di folder `VoxBazaar-GitHub`. Backup folder project jika belum.
+2. Buka VS Code pada `VoxBazaar-GitHub`.
+3. Buka terminal; gunakan branch `dashboard-integration` yang sudah kamu buat (jangan jalankan `git switch main` untuk update ini):
 
-Run a production build:
-
-```bash
-npm run build
-npm run preview
-```
-
-## Demo routes
-
-The app uses hash-based routing. All of the following can be opened or refreshed on GitHub Pages:
-
-| Page | Hash route |
-|---|---|
-| Homepage | `#/` |
-| Products | `#/products` |
-| Booths | `#/booths` |
-| Projects | `#/projects` |
-| Search | `#/search` |
-| Product detail | `#/product/tenmoku-bowl` |
-| Booth detail | `#/booth/kusuma-pottery` |
-| Project detail | `#/project/indigo-revival` |
-| Vendor onboarding sample | `#/sell` |
-| Studio demo (local drafts) | `#/studio` |
-| Account preview | `#/account` |
-
-### State previews
-
-The small **UI states** switcher at the lower-right provides developer/demo links for `default`, `loading`, `empty`, `error`, `offline`, and `no-permission` on the homepage and explore pages. These are **deliberate test state previews**, not real API failures. For example `#/products?state=error`.
-
-## Deployment to GitHub Pages
-
-This project **retains the existing** `.github/workflows/deploy.yml`. No separate `gh-pages` branch is needed.
-
-1. Make a **backup** of your original repository folder.
-2. Make a new working branch, then replace its `src/` directory and the other project files with these files (do **not** replace/delete the original `.git` directory).
-3. Open the repository folder in VS Code, run `npm ci` and `npm run build`.
-4. Use a new branch until you have checked the result:
-
-   ```bash
-   git switch -c marketplace-redesign
-   git add .
-   git commit -m "Build virtual marketplace R1 prototype"
-   git push -u origin marketplace-redesign
+   ```powershell
+   git branch --show-current
+   git status -sb
    ```
 
-5. On GitHub, open a Pull Request into `main`. Merge once reviewed; the existing GitHub Actions workflow deploys the `dist` build to GitHub Pages.
-6. Under **Settings → Pages**, use **GitHub Actions** as the deployment source.
+   Lanjutkan ketika statusnya aman dan branch aktif adalah `dashboard-integration`. Jika ada uncommitted changes, backup/commit dahulu.
+4. Ekstrak ZIP ini. Untuk **PATCH**, salin seluruh isi ZIP ke root `VoxBazaar-GitHub` dan pilih *Replace* bila diminta. Untuk **FULL**, backup dahulu lalu ganti folder `src` lama dengan `src` baru, kemudian salin `docs`, `.github`, dan file konfigurasi. **Jangan pernah menyalin, menghapus atau menimpa `.git`.**
+5. Di terminal:
 
-Expected site: https://flienschyf.github.io/VoxBazaar-Prototype/
+   ```powershell
+   npm ci
+   npm run dev
+   ```
 
-## Source / scope
+6. Buka `http://localhost:5173/` lalu periksa:
+   - `http://localhost:5173/#/` — public homepage
+   - `http://localhost:5173/#/studio` — Vendor Studio
+   - `http://localhost:5173/#/studio/products` — product manager
+   - `http://localhost:5173/#/studio/projects` — project manager
+   - `http://localhost:5173/#/studio/analytics` — sample analytics
+   - `http://localhost:5173/#/admin` — Admin Studio
+   - `http://localhost:5173/#/admin/vendors` — vendor review
+   - `http://localhost:5173/#/admin/reports` — report moderation
+   - `http://localhost:5173/#/account` — Account hub
+   - `http://localhost:5173/#/account/notifications` — notifications
 
-- Source: the original `VoxBazaar-GitHub` ZIP, Stitch desktop export (37 screens), and Stitch mobile export (130 screen variants).
-- Design adaptation: brand primary blue `#1B63E0`, canvas `#F4F4F4`, white cards, Fraunces headings and Inter body. Built as **one responsive web codebase**, not two separate apps.
-- Content: representative entries adapted and condensed from the Stitch examples. All vendor names, prices and descriptions are fictional demo content.
-- Product vs Project: products have prices and **Visit Booth** links; projects show **Showcase**, with no price.
-- No live backend, authentication, checkout, payment processing, vendor approval or user registration. The account page is illustrative only.
-- Product-saving and draft creation use this browser's `localStorage`, not a shared database.
-- Exported Stitch imagery uses `lh3.googleusercontent.com/aida-public/...` **remote URLs** in `src/data/stitchImages.json`. Images may need replacement with locally hosted, licensed media before a real launch; a plain placeholder displays if an image URL fails to load. Do not treat generated or sample imagery as licensed production assets.
-- Old source pages that referred to the physical bazaar have been removed from this deliverable. Keep your original repository ZIP as the backup/reference. Do not restore event-management routes.
-- Mobile pages and various state designs are **translated into shared React patterns**, not all 167 exported HTML screens implemented one-for-one. The desktop Vendor Studio and complete flows remain follow-up work.
+7. Test responsive in Chrome DevTools at widths **390px, 834px, 1440px**. Test keyboard navigation, search, form fields, and empty/error states.
+8. Check production build:
 
-## Recommended next development tasks
+   ```powershell
+   npm run build
+   ```
 
-1. Replace external Stitch images with approved local assets.
-2. Finish the Vendor Studio UI to match remaining desktop Stitch screens, once exported.
-3. Add proper backend, validation, access controls and data persistence if proceeding beyond the prototype.
-4. Run manual keyboard/screen-reader tests, mobile touch tests and automated WCAG audits. The code includes accessible patterns but is **not certified WCAG 2.2 AA**.
-5. Confirm release-one features with stakeholders before commerce work (R2).
+   **If the build fails, do not push/merge.** Read the terminal error first.
+9. Commit, push, and PR:
+
+   ```powershell
+   git add .
+   git commit -m "Integrate VoxBazaar Stitch dashboards"
+   git push -u origin dashboard-integration
+   ```
+
+   Open GitHub, create PR `dashboard-integration` → `main`, review it, merge only after tests pass, and wait for Actions deployment.
+
+## Struktur kode: ubah di mana?
+
+| Tujuan | File |
+|---|---|
+| Mengubah routing layar | `src/App.jsx` |
+| Header/footer dan nav pengunjung | `src/components/Layout.jsx` |
+| Homepage, Products, Booths, Projects dan search | `src/pages/Marketplace.jsx` |
+| Detail produk, booth dan proyek | `src/pages/Details.jsx` |
+| Vendor onboarding R1 | `src/pages/PrototypeTools.jsx` (`SellPage`) |
+| Vendor Studio: Overview, CRUD Produk/Projects, Booth, Analytics, Orders placeholder, Settings | `src/dashboard/VendorPages.jsx` |
+| Admin Studio: Overview, Vendors, Catalog, Reports, Categories, Audit, Settings | `src/dashboard/AdminPages.jsx` |
+| Dashboard sidebar, header, badges, dialog, simulated UI states | `src/dashboard/DashboardShell.jsx` |
+| Local data, persistence, CSV export | `src/dashboard/DemoStore.jsx` |
+| Buyer Account, wishlist, notifications, future orders | `src/dashboard/AccountPages.jsx` |
+| Dashboard styling + responsive | `src/dashboard/dashboard.css` |
+| Public page styling | `src/index.css` |
+| Static public catalog & photos | `src/data/catalog.js`, `src/data/stitchImages.json` |
+| Brand tab title | `index.html` (`<title>VoxBazaar</title>`) |
+| Deployment | `.github/workflows/deploy.yml`, `vite.config.js` |
+
+## Important notes
+
+- All dashboard sample actions are **local-only**. Editing sample products **does not** edit the public homepage (which still uses curated static sample data).
+- `Products` = price and Visit Booth CTA. `Projects` = showcase with no price.
+- No active checkout, payments, shipping, verification of ID documents or real order fulfillment in Release 1.
+- `/admin` is accessible to visitors in this demo; **it must be protected by real authentication and server-enforced RBAC** before production.
+- All 83 Stitch desktop designs are documented in `docs/STITCH_COVERAGE.md`. 14 useful Stitch screenshot references are in `docs/stitch-desktop-reference/`. These are **visual references, not imported interactive code**.
+- Photographs in the current sample catalog reference externally hosted Stitch image URLs. The UI has a fallback if an image cannot be loaded.
+- UI is responsive, but pixel-identical fidelity and WCAG AA compliance require manual browser/device audits; they are not certified by this ZIP.
+- GitHub Pages uses hash routes (`#/studio/...`) intentionally to avoid page-refresh 404 errors.
