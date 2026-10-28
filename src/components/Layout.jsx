@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import {useCommerce} from '../commerce/CommerceStore'
 import { ArrowRight, BookOpen, CircleHelp, Home, LayoutGrid, Menu, Search, ShieldCheck, ShoppingBag, Store, UserRound, X } from 'lucide-react'
 
 const href = (path) => `#${path}`
@@ -10,6 +11,7 @@ export const navLinks = [
 export function Brand(){return <a className="vb-brand" href={href('/')} aria-label="VoxBazaar home"><span className="vb-brand-icon" aria-hidden="true">V</span><span><strong>VoxBazaar</strong></span></a>}
 export function Header({pathname}){
  const [menu,setMenu]=useState(false)
+ const {cart}=useCommerce()
  const [search,setSearch]=useState('')
  const submit=(e)=>{e.preventDefault(); location.hash='/search?q='+encodeURIComponent(search);setMenu(false)}
  return <>
@@ -17,10 +19,10 @@ export function Header({pathname}){
      <Brand/>
      <nav className="vb-top-nav" aria-label="Primary navigation">{navLinks.map(l=><a key={l.path} className={pathname.startsWith(l.path)?'active':''} href={href(l.path)}>{l.name}</a>)}</nav>
      <form className="vb-header-search" role="search" onSubmit={submit}><label className="vb-sr-only" htmlFor="header-search">Search products, booths or projects</label><Search size={18} aria-hidden="true"/><input id="header-search" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search handmade creations…"/><button type="submit" aria-label="Submit search"><ArrowRight size={18}/></button></form>
-     <div className="vb-header-actions"><a className="vb-outline-button" href={href('/sell')}>Open your booth</a><a className="vb-signin" href={href('/account')}><UserRound size={18}/><span>Account</span></a></div>
-     <div className="vb-mobile-head"><a href={href('/search')} aria-label="Search"><Search size={21}/></a><button type="button" onClick={()=>setMenu(!menu)} aria-label={menu?'Close menu':'Open menu'} aria-expanded={menu}>{menu?<X size={23}/>:<Menu size={23}/>}</button></div>
+     <div className="vb-header-actions"><a className="vb-commerce-header-cart" href="#/cart" aria-label={`Cart with ${cart.reduce((n,x)=>n+x.qty,0)} items`}><ShoppingBag size={18}/> Cart <span>{cart.reduce((n,x)=>n+x.qty,0)}</span></a><a className="vb-outline-button" href={href('/sell')}>Open your booth</a><a className="vb-signin" href={href('/account')}><UserRound size={18}/><span>Account</span></a></div>
+     <div className="vb-mobile-head"><a className="vb-commerce-mobile-cart" href="#/cart" aria-label="Shopping cart"><ShoppingBag size={21}/>{cart.length>0&&<span>{cart.reduce((n,x)=>n+x.qty,0)}</span>}</a><a href={href('/search')} aria-label="Search"><Search size={21}/></a><button type="button" onClick={()=>setMenu(!menu)} aria-label={menu?'Close menu':'Open menu'} aria-expanded={menu}>{menu?<X size={23}/>:<Menu size={23}/>}</button></div>
    </div></header>
-   {menu&&<nav className="vb-mobile-menu" aria-label="Mobile expanded navigation">{navLinks.map(l=><a key={l.path} href={href(l.path)} onClick={()=>setMenu(false)}>{l.name}</a>)}<a href={href('/sell')} onClick={()=>setMenu(false)}>Open your booth</a></nav>}
+   {menu&&<nav className="vb-mobile-menu" aria-label="Mobile expanded navigation">{navLinks.map(l=><a key={l.path} href={href(l.path)} onClick={()=>setMenu(false)}>{l.name}</a>)}<a href={href('/sell')} onClick={()=>setMenu(false)}>Open your booth</a><a href="#/cart" onClick={()=>setMenu(false)}>Shopping cart</a></nav>}
  </>
 }
 export function Footer(){return <footer className="vb-footer"><div className="vb-container vb-footer-grid"><div><Brand/><p>An independent marketplace for handmade objects, creative projects, and the people who make them.</p><span className="vb-demo-notice">Interactive design prototype · Fictional demo content</span></div><div><b>Explore</b><a href="#/products">Handmade products</a><a href="#/booths">Digital booths</a><a href="#/projects">Creative projects</a></div><div><b>For makers</b><a href="#/sell">Open your booth</a><a href="#/studio">Vendor Studio</a></div><div><b>Information</b><a href="#/help">Help & contact</a><a href="#/about">About</a></div></div><div className="vb-container vb-footer-bottom"><span>© 2026 VoxBazaar · Prototype only</span><span>Crafted for independent makers</span></div></footer>}
