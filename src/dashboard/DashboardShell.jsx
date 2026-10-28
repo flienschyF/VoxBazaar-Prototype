@@ -1,6 +1,7 @@
 import {BarChart3, Bell, BookOpen, ChartNoAxesColumn, ChevronDown, ClipboardCheck, ExternalLink, FileText, Flag, FolderKanban, Grid2X2, House, LayoutDashboard, ListChecks, Menu, Package, Search, Settings, ShieldCheck, SlidersHorizontal, Store, Tags, UserRoundCheck, Users, X} from 'lucide-react'
 import {useState} from 'react'
 import {useDemo} from './DemoStore'
+import {booths} from '../data/catalog'
 
 const vendorNavigation=[
  {label:'Overview',url:'/studio',icon:LayoutDashboard},
@@ -8,12 +9,15 @@ const vendorNavigation=[
  {label:'Projects',url:'/studio/projects',icon:FolderKanban},
  {label:'Booth appearance',url:'/studio/booth',icon:Store},
  {label:'Analytics',url:'/studio/analytics',icon:ChartNoAxesColumn},
- {label:'Orders (R2)',url:'/studio/orders',icon:ListChecks},
+ {label:'Orders (demo)',url:'/studio/orders',icon:ListChecks},
+ {label:'Shipping settings',url:'/studio/shipping',icon:Store},
+ {label:'Payment account',url:'/studio/payments',icon:SlidersHorizontal},
  {label:'Settings',url:'/studio/settings',icon:Settings},
 ]
 const adminNavigation=[
  {label:'Overview',url:'/admin',icon:LayoutDashboard},
  {label:'Vendors & verification',url:'/admin/vendors',icon:UserRoundCheck},
+ {label:'Orders (demo)',url:'/admin/orders',icon:ClipboardCheck},
  {label:'Content catalog',url:'/admin/catalog',icon:Package},
  {label:'Reports & moderation',url:'/admin/reports',icon:Flag},
  {label:'Categories',url:'/admin/categories',icon:Tags},
@@ -22,14 +26,15 @@ const adminNavigation=[
 ]
 export function DashboardShell({admin=false,pathname,state='default',children}){
  const [open,setOpen]=useState(false),[search,setSearch]=useState('')
- const {data}=useDemo()
+ const {data,activeVendorId,activeBooth,allBooths,setActiveVendor}=useDemo()
  const nav=admin?adminNavigation:vendorNavigation
  const name=admin?'Admin Studio':'Vendor Studio'
  return <div className="vb-dash-shell">
    <a className="vb-skip-link" href="#dash-main">Skip to main content</a>
    <aside className={'vb-dash-sidebar '+(open?'is-open':'')} aria-label={name+' navigation'}>
     <div className="vb-dash-brand"><a href="#/" className="vb-dash-logo" aria-label="VoxBazaar homepage"><span className="vb-brand-icon" aria-hidden="true">V</span><strong>VoxBazaar</strong></a><span className="vb-dash-brand-caption">{name}</span><button type="button" onClick={()=>setOpen(false)} className="vb-dash-mobile-close" aria-label="Close sidebar"><X size={21}/></button></div>
-    <div className="vb-dash-workspace"><span className="vb-dash-avatar">{admin?'A':'P'}</span><span><b>{admin?'Marketplace management':data.booth.name}</b><small>{admin?'Admin workspace':'Digital booth workspace'}</small></span><ChevronDown size={15}/></div>
+    <div className="vb-dash-workspace"><span className="vb-dash-avatar">{admin?'A':activeBooth.name.slice(0,1)}</span><span><b>{admin?'Marketplace management':activeBooth.name}</b><small>{admin?'Admin workspace':'Digital booth demo'}</small></span></div>
+    {!admin&&<label className="vb-global-vendor-switch"><span>PREVIEW AS VENDOR</span><select value={activeVendorId} onChange={e=>setActiveVendor(e.target.value)} aria-label="Switch simulated vendor booth">{allBooths.map(b=><option key={b.id} value={b.id}>{b.name} · {b.country||'Demo booth'}</option>)}</select><small>Demo switching only · No login or account access</small></label>}
     <p className="vb-dash-sidebar-title">WORKSPACE</p>
     <nav className="vb-dash-nav">{nav.map(({label,url,icon:Icon})=><a key={url} href={'#'+url} className={pathname===url?'active':''} aria-current={pathname===url?'page':undefined} onClick={()=>setOpen(false)}><Icon size={19}/><span>{label}</span></a>)}</nav>
     <div className="vb-dash-sidebar-bottom"><a href="#/products"><ExternalLink size={17}/>View marketplace</a><div className="vb-demo-flag"><ShieldCheck size={18}/><span>Interactive prototype<br/><small>Demo data · Browser only</small></span></div></div>
