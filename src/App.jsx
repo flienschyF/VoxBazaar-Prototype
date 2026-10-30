@@ -11,12 +11,20 @@ import {VendorOverview,VendorProducts,VendorProductEditor,VendorProjects,VendorP
 import {AdminOverview,AdminVendors,AdminCatalog,AdminReports,AdminCategories,AdminAudit,AdminSettings} from './dashboard/AdminPages'
 import {AdminOrders} from './dashboard/AdminOrders'
 import {AccountHub,WishlistPage,NotificationsPage,OrdersInfo} from './dashboard/AccountPages'
+import {LoginPage,RegisterPage,ForgotPasswordPage,VerifyEmailPage} from "./ux/VoxAccess";
 const read=()=>{
  const hash=decodeURI(window.location.hash.slice(1)||'/')
  const [pathname,search='']=hash.split('?')
  return { pathname:pathname||'/', params:new URLSearchParams(search) }
 }
 export default function App(){return <DemoProvider><CommerceProvider><AppRouter/></CommerceProvider></DemoProvider>}
+function GuestAccountRedirect() {
+  useEffect(() => {
+    window.location.hash = '#/login'
+  }, [])
+
+  return null
+}
 function AppRouter(){
  const {activeVendorId}=useDemo()
  const [route,setRoute]=useState(read)
@@ -61,13 +69,22 @@ function AppRouter(){
  else if(pathname==='/admin/categories')page=<AdminCategories/>
  else if(pathname==='/admin/audit')page=<AdminAudit/>
  else if(pathname==='/admin/settings')page=<AdminSettings/>
- else if(pathname==='/account')page=<AccountHub/>
+ else if(pathname==='/account')
+  page=sessionStorage.getItem('voxbazaar-preview-session')
+    ? <AccountHub/>
+    : <GuestAccountRedirect/>
  else if(pathname==='/account/wishlist')page=<WishlistPage/>
  else if(pathname==='/account/notifications')page=<NotificationsPage/>
  else if(pathname==='/account/orders')page=<BuyerOrdersPage/>
- else if(pathname==='/login'||pathname==='/register')page=<AccountPage/>
+ else if(pathname==='/login')page=<LoginPage/>
+ else if(pathname==='/register')page=<RegisterPage/>
+ else if(pathname==='/forgot-password')page=<ForgotPasswordPage/>
+ else if(pathname==='/verify-email')page=<VerifyEmailPage/>
  else if(pathname==='/about'||pathname==='/help')page=<InfoPage which={pathname.slice(1)}/>
  else page=<NotFound/>
+ if(['/login','/register','/forgot-password','/verify-email'].includes(pathname)){
+  return page
+}
  if(pathname.startsWith('/studio')||pathname.startsWith('/admin'))return <DashboardShell key={pathname.startsWith('/admin')?'admin':'vendor'} admin={pathname.startsWith('/admin')} pathname={pathname} state={state}>{page}</DashboardShell>
  return <div className="vb-app"><a className="vb-skip-link" href="#main">Skip to main content</a><Header pathname={pathname}/><main id="main" tabIndex="-1" className="vb-main">{page}</main><Footer/><BottomNav pathname={pathname}/><DevStateSwitcher pathname={pathname} state={state}/></div>
 }

@@ -1,0 +1,371 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap");
+
+.vx-auth-page {
+  --vx-blue: #1B63E0;
+  --vx-text: #142033;
+  --vx-muted: #4E5F78;
+  --vx-border: #6E86A3;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 100dvh;
+  padding: 40px 24px;
+  background: #F4F4F4;
+  color: var(--vx-text);
+  font-family: "Inter", Arial, sans-serif;
+}
+
+.vx-auth-page *,
+.vx-auth-page *::before,
+.vx-auth-page *::after {
+  box-sizing: border-box;
+}
+
+.vx-auth-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  max-width: 1060px;
+  min-height: 680px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid #DDDDDD;
+  border-radius: 20px;
+  background: #FFFFFF;
+  box-shadow: 0 16px 48px rgba(20, 32, 51, 0.07);
+}
+
+.vx-auth-aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  padding: 40px;
+  color: white;
+  background:
+    radial-gradient(circle at 86% 16%, rgba(255,255,255,.12), transparent 34%),
+    repeating-linear-gradient(135deg, transparent 0 22px, rgba(255,255,255,.035) 22px 24px),
+    linear-gradient(150deg, #142033, #203F70 65%, #315D91);
+}
+
+.vx-auth-brand {
+  color: #FFFFFF;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.vx-auth-aside-content h1 {
+  max-width: 400px;
+  margin: 14px 0 18px;
+  color: #FFFFFF;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(36px, 3.5vw, 52px);
+  font-weight: 500;
+  line-height: 1.12;
+}
+
+.vx-auth-aside-content p {
+  max-width: 350px;
+  color: #E1E9F5;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.vx-auth-caption {
+  color: #D6E1F0;
+  font-size: 12px;
+}
+
+.vx-auth-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 32px clamp(24px, 5vw, 72px);
+}
+
+.vx-back-link {
+  width: fit-content;
+  color: #155CBD;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.vx-auth-form-wrap {
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+  padding: 38px 0;
+}
+
+.vx-eyebrow {
+  color: #155CBD;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.vx-auth-aside .vx-eyebrow {
+  color: #C3D9FF;
+}
+
+.vx-auth-heading h2 {
+  margin: 12px 0 10px;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(30px, 3vw, 40px);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.vx-auth-heading p {
+  margin: 0 0 30px;
+  color: var(--vx-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.vx-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.vx-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 9px;
+}
+
+.vx-field label,
+.vx-field-top label {
+  color: var(--vx-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.vx-field-top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vx-field-top a,
+.vx-auth-switch a {
+  color: #155CBD;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.vx-input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 50px;
+  padding: 12px 15px;
+  border: 1.5px solid var(--vx-border);
+  border-radius: 12px;
+  background: #FFFFFF;
+  color: var(--vx-text);
+  font: inherit;
+  font-size: 14px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.vx-input::placeholder {
+  color: #61718A;
+}
+
+.vx-input:focus-visible,
+.vx-button:focus-visible,
+.vx-password-toggle:focus-visible,
+.vx-auth-page a:focus-visible {
+  outline: 2px solid var(--vx-blue);
+  outline-offset: 3px;
+}
+
+.vx-password-wrap {
+  position: relative;
+}
+
+.vx-password-wrap .vx-input {
+  padding-right: 75px;
+}
+
+.vx-password-toggle {
+  position: absolute;
+  top: 0;
+  right: 4px;
+  height: 50px;
+  min-width: 60px;
+  border: 0;
+  background: transparent;
+  color: #155CBD;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.vx-button {
+  display: inline-flex;
+  min-height: 50px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1.5px solid var(--vx-border);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.vx-button-primary {
+  border-color: var(--vx-blue);
+  background: var(--vx-blue);
+  color: #FFFFFF;
+}
+
+.vx-button-primary:hover {
+  background: #1555C3;
+}
+
+.vx-auth-switch {
+  margin-top: 26px;
+  color: var(--vx-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.vx-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--vx-muted);
+  font-size: 13px;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.vx-check input {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  accent-color: var(--vx-blue);
+}
+
+.vx-error {
+  padding: 14px;
+  border: 1px solid #B3261E;
+  border-radius: 10px;
+  background: #FDECEA;
+  color: #84241E;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.vx-message {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 14px;
+  background: #EFF4FF;
+  color: var(--vx-text);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.vx-message p {
+  margin: 0;
+}
+
+.vx-demo-note {
+  margin: 26px 0 0;
+  color: var(--vx-muted);
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .vx-auth-shell {
+    grid-template-columns: 0.75fr 1fr;
+    min-height: 620px;
+  }
+
+  .vx-auth-aside {
+    padding: 30px;
+  }
+
+  .vx-auth-content {
+    padding: 28px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .vx-auth-page {
+    padding: 0;
+    min-height: 100dvh;
+    background: #FFFFFF;
+  }
+
+  .vx-auth-shell {
+    display: block;
+    min-height: 100dvh;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .vx-auth-aside {
+    display: none;
+  }
+
+  .vx-auth-content {
+    min-height: 100dvh;
+    padding:
+      max(24px, env(safe-area-inset-top))
+      24px
+      max(32px, env(safe-area-inset-bottom));
+  }
+
+  .vx-auth-form-wrap {
+    max-width: 440px;
+    padding: 48px 0;
+  }
+}
+
+/* Small Mobile: 320–390px */
+@media (max-width: 390px) {
+  .vx-auth-content {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .vx-auth-heading h2 {
+    font-size: 30px;
+  }
+
+  .vx-auth-form {
+    gap: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vx-auth-page *,
+  .vx-auth-page *::before,
+  .vx-auth-page *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
